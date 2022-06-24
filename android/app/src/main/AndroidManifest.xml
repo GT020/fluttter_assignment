@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bima_doctor_admin">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="bima_doctor_admin"
         android:name="${applicationName}"
