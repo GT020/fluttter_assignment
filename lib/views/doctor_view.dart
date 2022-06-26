@@ -151,47 +151,51 @@ class _DoctorViewState extends ConsumerState<DoctorView> {
           ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: [
-          const Center(
-            child: Text("PersonDetails",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "Roboto Condensed",
-                  fontStyle: FontStyle.normal,
-                  fontSize: 30,
-                )),
-          ),
-          DocTextField(
-              textEditingController: firstNameFieldController,
-              readOnlyBool: editBool,
-              title: "First Name"),
-          DocTextField(
-              textEditingController: lastNameFieldController,
-              readOnlyBool: editBool,
-              title: "Last Name"),
-          DocTextField(
-              textEditingController: genderFieldController,
-              readOnlyBool: editBool,
-              title: "Gender"),
-          DocTextField(
-              textEditingController: phoneFieldController,
-              readOnlyBool: true,
-              title: "Phone Number"),
-          DocTextField(
-              textEditingController: weightFieldController,
-              readOnlyBool: editBool,
-              title: "Weight"),
-          DocTextField(
-              textEditingController: heightFieldController,
-              readOnlyBool: editBool,
-              title: "Height"),
-          DocTextField(
-              textEditingController: bloodGroupFieldController,
-              readOnlyBool: editBool,
-              title: "Blood Group"),
-        ],
+      body: SingleChildScrollView(
+        child: Wrap(
+          children: [
+            const Center(
+              child: Text("PersonDetails",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: "Roboto Condensed",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 30,
+                  )),
+            ),
+            DocTextField(
+                textEditingController: firstNameFieldController,
+                readOnlyBool: editBool,
+                title: "First Name"),
+            DocTextField(
+                textEditingController: lastNameFieldController,
+                readOnlyBool: editBool,
+                title: "Last Name"),
+            DocTextField(
+                textEditingController: genderFieldController,
+                readOnlyBool: editBool,
+                title: "Gender"),
+            DocTextField(
+                textEditingController: phoneFieldController,
+                readOnlyBool: true,
+                title: "Phone Number"),
+            DocTextField(
+                boxConstraints: const BoxConstraints(maxWidth: 90),
+                textEditingController: weightFieldController,
+                readOnlyBool: editBool,
+                title: "Weight"),
+            DocTextField(
+                boxConstraints: const BoxConstraints(maxWidth: 90),
+                textEditingController: heightFieldController,
+                readOnlyBool: editBool,
+                title: "Height"),
+            DocTextField(
+                boxConstraints: const BoxConstraints(maxWidth: 90),
+                textEditingController: bloodGroupFieldController,
+                readOnlyBool: editBool,
+                title: "Blood Group"),
+          ],
+        ),
       ),
     );
   }
@@ -201,11 +205,13 @@ class DocTextField extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool readOnlyBool;
   final String title;
+  final BoxConstraints? boxConstraints;
   const DocTextField(
       {Key? key,
       required this.textEditingController,
       required this.readOnlyBool,
-      required this.title})
+      required this.title,
+      this.boxConstraints})
       : super(key: key);
 
   @override
@@ -228,6 +234,7 @@ class DocTextField extends StatelessWidget {
           readOnly: readOnlyBool,
           controller: textEditingController,
           decoration: InputDecoration(
+            constraints: boxConstraints,
             border: const OutlineInputBorder(borderSide: BorderSide.none),
             labelText: title,
             labelStyle: const TextStyle(
