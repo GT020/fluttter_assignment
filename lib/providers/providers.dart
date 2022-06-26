@@ -7,8 +7,7 @@ final doctorRepositoryProvider = Provider(
     return DoctorsRepositoryImpl();
   },
 );
-final doctorListProvider = FutureProvider((ref) async {
-  List<Doctor> doctors =
-      await ref.read(doctorRepositoryProvider).getAllDoctors();
-  return doctors;
+
+final doctorListProvider = StreamProvider((ref) {
+  return ref.read(doctorRepositoryProvider).doctorListController.stream;
 });

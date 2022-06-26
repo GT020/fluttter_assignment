@@ -1,4 +1,3 @@
-import 'package:bima_doctor_admin/app/route_constants.dart';
 import 'package:bima_doctor_admin/app/route_generator.dart';
 import 'package:bima_doctor_admin/model/doctor.dart';
 import 'package:bima_doctor_admin/views/home_view.dart';
