@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bima_doctor_admin/api_provider/doctor_api.dart';
@@ -26,21 +25,25 @@ class DoctorsRepositoryImpl implements DoctorsRepository {
     final List<dynamic> doctorsJsonList =
         await _doctorProviderApi.getDoctorList();
 
-    List<Doctor> doctors = doctorsJsonList.map((dynamic doctorJson) {
-      return Doctor.fromJson(doctorJson);
-    }).toList();
-    final savedEditedDoctors = getSavedDoctors();
-    if (savedEditedDoctors.isNotEmpty) {
-      final List<int?> editedIds = savedEditedDoctors.map((Doctor doctor) {
-        return doctor.id;
+    if (doctorsJsonList.isEmpty) {
+      doctorListController.addError('No doctors found');
+    } else {
+      List<Doctor> doctors = doctorsJsonList.map((dynamic doctorJson) {
+        return Doctor.fromJson(doctorJson);
       }).toList();
-      for (int? id in editedIds) {
-        doctors.removeWhere((element) => element.id == id);
+      final savedEditedDoctors = getSavedDoctors();
+      if (savedEditedDoctors.isNotEmpty) {
+        final List<int?> editedIds = savedEditedDoctors.map((Doctor doctor) {
+          return doctor.id;
+        }).toList();
+        for (int? id in editedIds) {
+          doctors.removeWhere((element) => element.id == id);
+        }
+        doctors.addAll(savedEditedDoctors);
       }
-      doctors.addAll(savedEditedDoctors);
+      doctors.sort((Doctor a, Doctor b) => a.id!.compareTo(b.id!));
+      doctorListController.add(doctors);
     }
-    doctors.sort((Doctor a, Doctor b) => a.id!.compareTo(b.id!));
-    doctorListController.add(doctors);
   }
 
   Future<void> savedEditedDoctor(Doctor doctor) async {

@@ -1,3 +1,4 @@
+import 'package:bima_doctor_admin/app/app_constants.dart';
 import 'package:bima_doctor_admin/app/route_constants.dart';
 import 'package:bima_doctor_admin/model/doctor.dart';
 import 'package:bima_doctor_admin/providers/providers.dart';
@@ -39,8 +40,70 @@ class HomeView extends ConsumerWidget {
                 itemCount: doctors.length,
               );
             },
-            error: (e, s) => Text(e.toString()),
-            loading: () => const CircularProgressIndicator()));
+            error: (e, s) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      e.toString(),
+                      style: const TextStyle(
+                        color: seaGreen,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 40,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Check your internet connection then ",
+                      style: TextStyle(
+                        color: seaGreen,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Text(
+                      "try again!!",
+                      style: TextStyle(
+                        color: seaGreen,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Center(
+                      child: SizedBox(
+                        height: 40,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        ref.read(doctorRepositoryProvider).getAllDoctors();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 80, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: seaGreen,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Text(
+                          'Retry',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Roboto",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            loading: () => const LinearProgressIndicator(
+                  color: accent,
+                )));
   }
 }
 
@@ -65,7 +128,7 @@ class DoctorWidget extends StatelessWidget {
                         image: NetworkImage(
                             "https://upload.wikimedia.org/wikipedia/commons/9/91/Anil_Kapoor_at_%E2%80%9924%E2%80%99_game_launching_event.jpg")))),
           ),
-          title: Text('${doctor.firstName}${doctor.lastName}',
+          title: Text('${doctor.firstName} ${doctor.lastName}',
               style: const TextStyle(
                 color: Color.fromARGB(255, 30, 153, 210),
                 fontFamily: "Roboto",
