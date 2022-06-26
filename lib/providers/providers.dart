@@ -11,3 +11,4 @@ final doctorRepositoryProvider = Provider(
 final doctorListProvider = StreamProvider((ref) {
   return ref.read(doctorRepositoryProvider).doctorListController.stream;
 });
+
