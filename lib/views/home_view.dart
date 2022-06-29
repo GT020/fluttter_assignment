@@ -80,7 +80,9 @@ class HomeView extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        ref.read(doctorRepositoryProvider).getAllDoctors();
+                        ref
+                            .read(homeViewControllerProvider)
+                            .initializeDoctors();
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

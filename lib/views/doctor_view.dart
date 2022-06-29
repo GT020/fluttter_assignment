@@ -124,8 +124,8 @@ class _DoctorViewState extends ConsumerState<DoctorView> {
                         weight: int.parse(weightFieldController.text),
                         bloodGroup: bloodGroupFieldController.text);
                     ref
-                        .read(doctorRepositoryProvider)
-                        .savedEditedDoctor(editedDoctor);
+                        .read(homeViewControllerProvider)
+                        .saveDoctor(editedDoctor);
                   }
                 },
                 child: Container(
